@@ -37,14 +37,24 @@ Oh, and with the DACs, you can do some amazing stuff. How about rendering [realt
 
 ## Software Requirements
 * A platform that can run PlatformIO, be it Windows, Mac or Linux
-* C++ Editor of some sort (I personally use Eclipse or Notepad++ in a pinch)
+* C++ Editor of some sort; I personally use Eclipse or Notepad++ in a pinch
 
 ### Note to Arduino IDE Users
-You can probably get this to work if you do some tricks with the code files but I personally do not like the Arduino IDE since it feels rather clunky. While it might be good for the average person, it became a thorn in my backside rather quickly. Please follow the setup instructions to the best of your ability.
+You can probably get this to work if you do some tricks with the code files but I personally do not like the Arduino IDE since it feels rather clunky.
+While it might be good for the average person, it became a thorn in my backside rather quickly. Please follow the setup instructions to the best of your ability.
+TODO: YouTube setup video maybe?
 
 ## Project Setup
-1. Git clone this repository into a empty folder. For example, `/home/coburn/Dev` or `C:\Users\Coburn\Development`. It should end up cloning into SuperESP32World.
-2. Uh I have to finish writing this
+*I strongly recommend using Linux to set PlatformIO up. It's much less painful than Windows. Seriously. Windows PlatformIO setup is buggy as f\*\*k.*
+
+1. Make sure you have Python 2.7 installed and PlatformIO installed and configured - read the PlatformIO documents [located here](http://docs.platformio.org/en/latest/installation.html#local-download-mac-linux-windows) and ensure it works before continuing - open Command Prompt/Terminal and run "platformio" to see if you get a response. On Windows, PowerShell can sometimes suck so try to use `cmd.exe`, or it can be completely stupid and just not work. Brute force may be required.
+2. Linux users: Add yourself to the `dialout` group in order to use serial upload from PlatformIO. This is essential for Ubuntu/Debian users, Gentoo/Arch/whatever users mileage may vary.
+3. Git clone this repository into a empty folder. For example, `/home/coburn/Dev` or `C:\Users\Coburn\Development`. It should end up cloning into SuperESP32World.
+4. Open Terminal/Command Prompt, enter `platformio boards` and look for what the identifer for your ESP32 board is. For example, my Adafruit Huzzah32 Feather is called `featheresp32`. **DOUBLE CHECK THIS VALUE** or you will compile for the wrong target and shit won't work.
+5. Once you have found the ID, then enter `platformio init -b BOARD` where `BOARD` is your ESP32 board identifer. For example, mine would look like `platformio init -b featheresp32`.
+6. Once it initializes the required libraries you should be good to go. Then run `platformio run` and it should compile the code.
+7. After that is done it'll build the firmware for the ESP32 chip. With the ESP32 plugged in, run `platformio upload`. You may need to specify a COM/Serial Port if it throws an error - usually on Linux it'll be ttyUSB0, or on Windows it'll be some COM# port. If all goes well, you'll see PlatformIO write the code to the flash chip and reboot the ESP32.
+8. If everything is wired up correctly, check your RCA monitor or capture card. You should have some visuals.
 
 ## Special Thanks
 * Bitluni, who is [here](https://github.com/bitluni) and his website [here](http://bitluni.net). He is the one responsible for the ESP32 RCA Code, which I have included in my project. Please do go to his website and drop him a like or a one-off donation, without him I'd be stuck bashing my head against SPI Displays
